@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const formatDate = require('../util/dateFormat.js');
+const formatDate = require('../util/format.js');
 
 // Schema to create Student model
 const replySchema = new Schema(
@@ -28,6 +28,7 @@ const replySchema = new Schema(
     toJSON: {
       getters: true,
     },
+    id:false
   }
 );
 

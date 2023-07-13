@@ -4,27 +4,25 @@ const { Schema, model } = require('mongoose');
 // Schema to create user model
 const userSchema = new Schema(
   {
-    name: {
+    username: {
       type: String,
       required: true,
       unique: true,
-      max_length: 25,
       trim: true
     },
     email: {
       type: String,
       required: true,
       unique: true,
-      max_length: 25,
       match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, 'Please fill a valid email address'],
     },
-    thoughts: {
-        type: mongoose.Schema.Types.ObjectId,
-         ref: 'thoughts'
-    },
-    friends: {
-        type: mongoose.Schema.Types.ObjectId,
-         ref: 'User'},
+    thoughts: [{
+        type: Schema.Types.ObjectId,
+         ref: 'Thoughts'
+    }],
+    friends: [{
+        type: Schema.Types.ObjectId,
+         ref: 'User'}],
   },
   {
     toJSON: {
