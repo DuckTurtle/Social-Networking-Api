@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 const replySchema = require('./replys.js');
-const formatDate = require('../util/dateFormat.js');
+const formatDate = require('../util/format.js');
 
 // Schema to create user model
 const thoughtSchema = new Schema(
@@ -36,6 +36,6 @@ thoughtSchema
     return this.reactions.length;
   });
 
-  const Thoughts = model('thoughts', thoughtSchema);
+  const Thoughts = model('Thoughts', thoughtSchema);
 
 module.exports = Thoughts;
