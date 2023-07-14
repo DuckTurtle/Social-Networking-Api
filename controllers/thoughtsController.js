@@ -45,14 +45,14 @@ module.exports = {
                     { new: true }
                 );
             })
-            .then(user => {
-                if (!user) {
+            
+                if (!thought) {
                     res.status(404).json({ message: 'No user found with this id' });
                     return;
                 }
-                res.json(user);
-            })
+                res.json(thought);
         } catch (err) {
+            console.log(err)
             res.status(500).json(err);
         }
     },
@@ -76,23 +76,20 @@ module.exports = {
     // delete a Thoughts and remove thoughts
     async deleteThoughts({params}, res) {
         try {
-            const thought = await Thoughts.findOneAndRemove({ _id: params.ThoughtId })
-            .then (removed => {
-                if (!removed) {
+            const thought = await Thoughts.findOneAndRemove({ _id: params.thoughtId })
+                if (!thought) {
                     return res.status(404).json({ message: 'No Thoughts found with this id' });
                 }
-                return User.findOneAndUpdate(
+                const user = await User.findOneAndUpdate(
                     { _id: params.userId },
                     { $pull: { thoughts: params.thoughtId } },
                     { new: true }
                 );
-            }).then(user => {
                 if (!user) {
                     return res.status(404).json({ message: 'No user found with this id' });
-                    
                 }
                 res.json({ message: 'Thought successfully deleted' })
-            })
+            
         } catch (err) {
             console.log(err);
             res.status(500).json(err);
@@ -121,15 +118,14 @@ module.exports = {
         try {
          const update = await Thoughts.findOneAndUpdate(
             { _id: params.thoughtId },
-            { $pull: { reactions: { reactionId: params.reactionId } } },
+            { $pull: { reactions: { id: params.reactionId } } },
             { new: true, runValidators: true }
         )
-        .then(gonethought => {
-            if (!gonethought) {
+        console.log(update);
+            if (!update) {
                 return res.status(404).json({ message: 'No Thoughts found with this id' });
             }
-            res.json(gonethought);
-        })
+            res.json(update);
     }
         catch (err) {
             console.log(err);
