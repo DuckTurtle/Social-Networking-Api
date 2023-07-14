@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, Types } = require('mongoose');
 const formatDate = require('../util/format.js');
 
 // Schema to create Student model
@@ -11,7 +11,6 @@ const replySchema = new Schema(
     text: {
         type: String,
         required: true,
-        unique: true,
         max_length: 280,
       },
       createdAt: {
